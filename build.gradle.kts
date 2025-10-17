@@ -29,6 +29,7 @@ val uuidCreatorVersion = "5.3.3"
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+    implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.hibernate.validator:hibernate-validator")
     implementation("com.github.f4b6a3:uuid-creator:$uuidCreatorVersion")
     implementation("org.hibernate.orm:hibernate-envers")
