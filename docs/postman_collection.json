@@ -1,0 +1,70 @@
+{
+  "info": {
+    "name": "Meli Order System API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Postman collection for Sprint 1: Order CRUD"
+  },
+  "item": [
+    {
+      "name": "Create Order",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"userId\": 1,\n  \"items\": [{ \"productId\": 1, \"quantity\": 2 }]\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/orders",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Order",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "{{baseUrl}}/api/orders/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders", ":id"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Update Order",
+      "request": {
+        "method": "PUT",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": {
+          "raw": "{{baseUrl}}/api/orders/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders", ":id"]
+        },
+        "body": { "mode": "raw", "raw": "{ \"status\": \"PAID\" }" }
+      },
+      "response": []
+    },
+    {
+      "name": "Delete Order",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "{{baseUrl}}/api/orders/:id",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "orders", ":id"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": { "exec": [], "type": "text/javascript" }
+    }
+  ]
+}
