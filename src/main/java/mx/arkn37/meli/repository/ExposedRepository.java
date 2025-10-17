@@ -16,7 +16,4 @@ public interface ExposedRepository<T extends ExposedEntity> extends BaseReposito
 
     Optional<T> findByUuid(UUID uuid);
 
-    @Query("SELECT e FROM #{#entityName} e WHERE e.deleteAt IS NULL")
-    Page<T> findAllActive(Pageable pageable);
-
 }

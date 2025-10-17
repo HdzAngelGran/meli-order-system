@@ -16,14 +16,14 @@ import java.math.BigDecimal;
 @Table(name = "orders")
 public class Order extends ExposedEntity {
 
-    @ManyToOne
-    @NotNull
-    @JoinColumn(name = "status_id")
-    private Status status;
+//    @ManyToOne
+//    @NotNull
+//    @JoinColumn(name = "status_id")
+//    private Status status;
 
     private BigDecimal total;
     private String description;
     private String address;
-    private boolean isEnabled;
+//    private boolean isEnabled;
 
 }
