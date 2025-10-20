@@ -1,8 +1,8 @@
-# Meli Order System — Sprint 1
+# Meli Order System
 
 ## Summary
 
-This repository contains the Meli Order System — a Spring Boot 3.x + Java 17 web service that implements the Order creation API for an online store. Sprint 1 focuses on implementing a RESTful resource for creating, reading, updating and deleting orders (CRUD) backed by a relational database (H2 for development, PostgreSQL for production). The project follows standard layered architecture: controllers, services, repositories and domain models.
+This repository contains the Meli Order System — a Spring Boot 3.x + Java 17 web service that implements the Order creation API for an online store. Focuses on implementing a RESTful resource for creating, reading, updating and deleting orders (CRUD) backed by a relational database (H2 for development, PostgreSQL for production). The project follows standard layered architecture: controllers, services, repositories and domain models.
 
 Intended audience: new developers joining the project, reviewers, and other technical stakeholders.
 
@@ -70,7 +70,7 @@ Environment variables for production (example):
 
 ## API Documentation
 
-The API exposes endpoints under `/api/orders`. Basic endpoints for Sprint 1:
+The API exposes endpoints under `/api/orders`:
 
 - POST /api/orders — create an order
 - GET /api/orders/{id} — retrieve order by id
@@ -78,6 +78,8 @@ The API exposes endpoints under `/api/orders`. Basic endpoints for Sprint 1:
 - DELETE /api/orders/{id} — delete order
 
 Postman collection: `docs/postman_collection.json` (import into Postman and set `{{baseUrl}}` to `http://localhost:8080`).
+
+For visual reference: [Postman screenshot](./docs/postman_screenshots.md)
 
 Swagger / OpenAPI:
 
@@ -107,7 +109,7 @@ Run unit and integration tests using Gradle:
 
 ## Team decisions and justifications
 
-This section documents high-level choices made in Sprint 1:
+This section documents high-level choices made:
 
 - Spring Boot 3.x & Java 17: modern LTS Java with Spring Boot productivity features and security fixes.
 - Gradle wrapper: reproducible builds across developer machines and CI.
