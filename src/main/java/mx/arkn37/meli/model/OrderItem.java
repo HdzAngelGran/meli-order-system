@@ -1,5 +1,13 @@
 package mx.arkn37.meli.model;
 
+/**
+ * Represents an item within an order, linking products and quantities.
+ * <p>
+ * Designed for extensibility and integration with inventory, billing, and reporting systems.
+ *
+ * @author Angel Hernandez
+ */
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;

@@ -1,5 +1,18 @@
 package mx.arkn37.meli.controller;
 
+/**
+ * Global exception handler for REST API.
+ * <p>
+ * Centralizes error handling for all controllers, enabling consistent error responses and easier integration with monitoring tools.
+ * <ul>
+ *   <li>Improves developer experience and API consumer clarity.</li>
+ *   <li>Facilitates integration with digital monitoring and alerting systems.</li>
+ *   <li>Adaptable for new exception types and business rules.</li>
+ * </ul>
+ *
+ * @author Angel Hernandez
+ */
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;

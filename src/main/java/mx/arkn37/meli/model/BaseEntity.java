@@ -1,5 +1,14 @@
 package mx.arkn37.meli.model;
 
+/**
+ * Base class for all entities, providing a unique identifier and common fields.
+ * <p>
+ * Facilitates integration with persistence frameworks and digital tools.
+ * Extend this class to ensure consistent entity management and auditing.
+ *
+ * @author Angel Hernandez
+ */
+
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

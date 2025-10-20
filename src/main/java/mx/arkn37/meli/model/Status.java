@@ -1,5 +1,13 @@
 package mx.arkn37.meli.model;
 
+/**
+ * Represents the status of an order or process.
+ * <p>
+ * Useful for workflow, reporting, and integration with external systems.
+ *
+ * @author Angel Hernandez
+ */
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;

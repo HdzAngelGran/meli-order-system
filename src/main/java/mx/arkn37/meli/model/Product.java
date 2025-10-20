@@ -1,5 +1,13 @@
 package mx.arkn37.meli.model;
 
+/**
+ * Represents a product available for ordering.
+ * <p>
+ * Integrates with catalog, inventory, and digital commerce tools.
+ *
+ * @author Angel Hernandez
+ */
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.Getter;
