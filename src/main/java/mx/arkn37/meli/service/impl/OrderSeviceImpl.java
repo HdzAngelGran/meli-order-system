@@ -6,7 +6,6 @@ import mx.arkn37.meli.repository.OrderRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import mx.arkn37.meli.service.OrderService;
-import org.hibernate.boot.model.naming.IllegalIdentifierException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -30,7 +29,7 @@ public class OrderSeviceImpl implements OrderService {
     @Override
     public void updateOrder(Order order) {
         Order originaOrder = orderRepository.findByUuidAndDeleteAtIsNull(order.getUuid())
-                .orElseThrow(() -> new IllegalIdentifierException("Order not found with UUID: " + order.getUuid()));
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with UUID: " + order.getUuid()));
 
         if (order.getAddress() != null) {
             originaOrder.setAddress(order.getAddress());
@@ -49,7 +48,7 @@ public class OrderSeviceImpl implements OrderService {
     @Override
     public Order orderByUuid(UUID uuid) {
         return orderRepository.findByUuidAndDeleteAtIsNull(uuid)
-                .orElseThrow(() -> new IllegalIdentifierException("Order not found with UUID: " + uuid));
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with UUID: " + uuid));
     }
 
     @Override
@@ -60,7 +59,7 @@ public class OrderSeviceImpl implements OrderService {
     @Override
     public void deleteOrder(UUID uuid) {
         Order order = orderRepository.findByUuid(uuid)
-                .orElseThrow(() -> new IllegalIdentifierException("Order not found with UUID: " + uuid));
+                .orElseThrow(() -> new IllegalArgumentException("Order not found with UUID: " + uuid));
 
         if (order.getDeleteAt() != null) {
             throw new IllegalStateException("Order with UUID " + uuid + " is already deleted.");
