@@ -25,6 +25,7 @@ repositories {
 }
 
 val uuidCreatorVersion = "5.3.3"
+val springdocVersion = "2.8.13"
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -33,6 +34,7 @@ dependencies {
     implementation("org.hibernate.validator:hibernate-validator")
     implementation("com.github.f4b6a3:uuid-creator:$uuidCreatorVersion")
     implementation("org.hibernate.orm:hibernate-envers")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdocVersion")
     compileOnly("org.projectlombok:lombok")
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.postgresql:postgresql")
