@@ -51,6 +51,26 @@ Development (H2, Swagger enabled):
 ./scripts/start-dev.ps1
 ```
 
+QA profile (PostgreSQL, Swagger enabled):
+
+On Linux/macOS:
+
+```bash
+./scripts/start-qa.sh
+```
+
+On Windows:
+
+```powershell
+./scripts/start-qa.bat
+```
+
+Or run directly with Gradle:
+
+```powershell
+.\gradlew.bat bootRun --args="--spring.profiles.active=qa"
+```
+
 Alternatively, run directly with Gradle:
 
 ```powershell
