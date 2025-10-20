@@ -1,4 +1,4 @@
-package mx.arkn37.meli.controller;
+package mx.arkn37.meli.exception;
 
 /**
  * Global exception handler for REST API.
@@ -28,9 +28,11 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
-  @ExceptionHandler(MethodArgumentNotValidException.class)
-  @ResponseStatus(HttpStatus.BAD_REQUEST)
-  public ResponseEntity<Object> handleValidationExceptions(MethodArgumentNotValidException ex) {
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+      org.springframework.http.HttpHeaders headers,
+      org.springframework.http.HttpStatusCode status,
+      org.springframework.web.context.request.WebRequest request) {
     Map<String, String> errors = new HashMap<>();
     ex.getBindingResult().getFieldErrors().forEach(error -> errors.put(error.getField(), error.getDefaultMessage()));
     return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
@@ -39,7 +41,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(MethodArgumentTypeMismatchException.class)
   @ResponseStatus(HttpStatus.BAD_REQUEST)
   public ResponseEntity<Object> handleTypeMismatch(MethodArgumentTypeMismatchException ex) {
-    String typeName = ex.getRequiredType() != null ? ex.getRequiredType().getSimpleName() : "unknown";
+    String typeName = "unknown";
+    if (ex.getRequiredType() != null) {
+      typeName = ex.getRequiredType().getSimpleName();
+    }
     String error = String.format("Parameter '%s' should be of type '%s'", ex.getName(), typeName);
     return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
   }
