@@ -3,6 +3,8 @@ package mx.arkn37.meli.controller;
 import lombok.RequiredArgsConstructor;
 import mx.arkn37.meli.model.Order;
 import mx.arkn37.meli.service.OrderService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,6 +40,12 @@ public class OrderController {
     public ResponseEntity<String> deleteOrder(@PathVariable UUID uuid) {
         orderService.deleteOrder(uuid);
         return new ResponseEntity<>("Order deleted", HttpStatus.OK);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Order>> getAllOrders(Pageable pageable) {
+        Page<Order> page = orderService.findAllOrders(pageable);
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
 }
