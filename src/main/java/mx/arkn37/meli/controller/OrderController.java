@@ -5,7 +5,10 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import mx.arkn37.meli.model.Order;
+import mx.arkn37.meli.dto.CreateOrderRequest;
+import mx.arkn37.meli.dto.OrderResponse;
+import mx.arkn37.meli.dto.UpdateOrderRequest;
+import mx.arkn37.meli.dto.UpdateOrderStatusRequest;
 import mx.arkn37.meli.service.OrderService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -29,20 +32,20 @@ public class OrderController {
             @ApiResponse(responseCode = "201", description = "Order created successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid input data")
     })
-    public ResponseEntity<String> saveOrder(@RequestBody Order order) {
-        orderService.saveOrder(order);
+    public ResponseEntity<String> saveOrder(@RequestBody CreateOrderRequest createOrderRequest) {
+        orderService.saveOrder(createOrderRequest);
         return new ResponseEntity<>("Order created", HttpStatus.CREATED);
     }
 
-    @PutMapping
+    @PutMapping("{uuid}")
     @Operation(summary = "Update an existing order", description = "Updates the details of an existing order.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Order updated successfully"),
             @ApiResponse(responseCode = "400", description = "Invalid input data"),
             @ApiResponse(responseCode = "404", description = "Order not found")
     })
-    public ResponseEntity<String> updateOrder(@RequestBody Order order) {
-        orderService.updateOrder(order);
+    public ResponseEntity<String> updateOrder(@PathVariable UUID uuid, @RequestBody UpdateOrderRequest updateOrderRequest) {
+    orderService.updateOrder(uuid, updateOrderRequest);
         return new ResponseEntity<>("Order updated", HttpStatus.OK);
     }
 
@@ -52,8 +55,8 @@ public class OrderController {
             @ApiResponse(responseCode = "200", description = "Order found"),
             @ApiResponse(responseCode = "404", description = "Order not found")
     })
-    public ResponseEntity<Order> getOrderByUuid(@PathVariable UUID uuid) {
-        Order order = orderService.orderByUuid(uuid);
+    public ResponseEntity<OrderResponse> getOrderByUuid(@PathVariable UUID uuid) {
+        OrderResponse order = orderService.orderByUuid(uuid);
         return new ResponseEntity<>(order, HttpStatus.OK);
     }
 
@@ -73,9 +76,21 @@ public class OrderController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list")
     })
-    public ResponseEntity<Page<Order>> getAllOrders(Pageable pageable) {
-        Page<Order> page = orderService.findAllOrders(pageable);
+    public ResponseEntity<Page<OrderResponse>> getAllOrders(Pageable pageable) {
+        Page<OrderResponse> page = orderService.findAllOrders(pageable);
         return new ResponseEntity<>(page, HttpStatus.OK);
+    }
+
+    @PutMapping("{uuid}/status")
+    @Operation(summary = "Update the status of an order", description = "Updates the status of an existing order.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Order status updated successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data"),
+            @ApiResponse(responseCode = "404", description = "Order not found")
+    })
+    public ResponseEntity<String> updateOrderStatus(@PathVariable UUID uuid, @RequestBody UpdateOrderStatusRequest updateOrderStatusRequest) {
+        orderService.updateOrderStatus(uuid, updateOrderStatusRequest);
+        return new ResponseEntity<>("Order status updated", HttpStatus.OK);
     }
 
 }

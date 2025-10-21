@@ -12,7 +12,10 @@ package mx.arkn37.meli.service;
  * @author Angel Hernandez
  */
 
-import mx.arkn37.meli.model.Order;
+import mx.arkn37.meli.dto.CreateOrderRequest;
+import mx.arkn37.meli.dto.OrderResponse;
+import mx.arkn37.meli.dto.UpdateOrderRequest;
+import mx.arkn37.meli.dto.UpdateOrderStatusRequest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,23 +23,31 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    void saveOrder(Order order);
-
     /**
      * Saves a new order to the system.
      *
-     * @param order the order to save
+     * @param createOrderRequest the order to save
      */
+    void saveOrder(CreateOrderRequest createOrderRequest);
 
-    void updateOrder(Order order);
 
     /**
      * Updates an existing order.
      *
-     * @param order the order with updated fields
+     * @param orderUuid the unique identifier of the order
+     * @param updateOrderRequest the order with updated fields
      */
+    void updateOrder(UUID orderUuid, UpdateOrderRequest updateOrderRequest);
 
-    Order orderByUuid(UUID uuid);
+
+    /**
+     * Updates the status of an existing order.
+     *
+     * @param orderUuid the unique identifier of the order
+     * @param updateOrderStatusRequest the new status to be assigned
+     */
+    void updateOrderStatus(UUID orderUuid, UpdateOrderStatusRequest updateOrderStatusRequest);
+
 
     /**
      * Retrieves an order by its UUID.
@@ -44,21 +55,23 @@ public interface OrderService {
      * @param uuid the unique identifier of the order
      * @return the found order
      */
+    OrderResponse orderByUuid(UUID uuid);
 
-    void deleteOrder(UUID uuid);
 
     /**
      * Deletes (soft-deletes) an order by its UUID.
      *
      * @param uuid the unique identifier of the order to delete
      */
+    void deleteOrder(UUID uuid);
 
-    Page<Order> findAllOrders(Pageable pageable);
+
     /**
      * Retrieves a paginated list of all orders.
      *
      * @param pageable the pagination and sorting information
      * @return a page of orders
      */
+    Page<OrderResponse> findAllOrders(Pageable pageable);
 
 }
