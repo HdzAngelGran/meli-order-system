@@ -20,11 +20,11 @@ import java.util.UUID;
 @NoRepositoryBean
 public interface ExposedRepository<T extends ExposedEntity> extends BaseRepository<T> {
 
-    Optional<T> findByUuidAndDeleteAtIsNull(UUID uuid);
+    Optional<T> findByUuidAndDeletedAtIsNull(UUID uuid);
 
     Optional<T> findByUuid(UUID uuid);
 
-    @Query("SELECT e FROM #{#entityName} e WHERE e.deleteAt IS NULL")
+    @Query("SELECT e FROM #{#entityName} e WHERE e.deletedAt IS NULL")
     Page<T> findAllActive(Pageable pageable);
 
 }

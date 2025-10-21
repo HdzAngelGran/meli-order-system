@@ -28,7 +28,7 @@ public class BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Boolean enabled;
+    private boolean enabled;
 
     @Column(updatable = false, nullable = false)
     private UUID createdBy;
@@ -41,6 +41,5 @@ public class BaseEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
-    private UUID deleteBy;
-    private LocalDateTime deleteAt;
+    private LocalDateTime deletedAt;
 }
