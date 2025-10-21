@@ -25,5 +25,6 @@ public class Status extends BaseEntity {
     @NotNull
     private String name;
     private String description;
+    private String code;
 
 }
