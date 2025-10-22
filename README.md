@@ -6,6 +6,53 @@ This project is a robust, enterprise-grade Order Management System (OMS) built u
 
 The system is engineered not just as a simple CRUD application, but as a strategic asset capable of integrating into larger enterprise workflows. It emphasizes clean architecture, advanced configuration management, and comprehensive API documentation to ensure high degrees of autonomy, adaptability.
 
+## Project Structure
+
+```
+src/main/java/mx/arkn37/meli/
+├── MeliApplication.java
+├── controller
+│   ├── OrderController.java
+│   └── StatusController.java
+├── dto
+│   ├── CreateOrderRequest.java
+│   ├── CreateStatusRequest.java
+│   ├── OrderResponse.java
+│   ├── StatusResponse.java
+│   ├── UpdateOrderRequest.java
+│   ├── UpdateOrderStatusRequest.java
+│   └── UpdateStatusRequest.java
+├── enums
+│   └── StatusType.java
+├── exception
+│   └── GlobalExceptionHandler.java
+├── mappers
+│   ├── OrderMapper.java
+│   └── StatusMapper.java
+├── model
+│   ├── BaseEntity.java
+│   ├── ExposedEntity.java
+│   ├── Order.java
+│   ├── OrderItem.java
+│   ├── Product.java
+│   ├── Status.java
+│   └── User.java
+├── repository
+│   ├── BaseRepository.java
+│   ├── ExposedRepository.java
+│   ├── OrderItemRepository.java
+│   ├── OrderRepository.java
+│   ├── ProductRepository.java
+│   ├── StatusRepository.java
+│   └── UserRepository.java
+└── service
+    ├── OrderService.java
+    ├── StatusService.java
+    └── impl
+        ├── OrderServiceImpl.java
+        └── StatusServiceImpl.java
+```
+
 ## Key Features and Functionality
 
 - **Full Order Lifecycle Management**: Complete CRUD (Create, Read, Update, Delete) operations for orders.
