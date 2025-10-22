@@ -1,70 +1,315 @@
 {
-  "info": {
-    "name": "Meli Order System API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": "Postman collection for Sprint 1: Order CRUD"
-  },
-  "item": [
-    {
-      "name": "Create Order",
-      "request": {
-        "method": "POST",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "body": {
-          "mode": "raw",
-          "raw": "{\n  \"userId\": 1,\n  \"items\": [{ \"productId\": 1, \"quantity\": 2 }]\n}"
-        },
-        "url": {
-          "raw": "{{baseUrl}}/api/orders",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "orders"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Get Order",
-      "request": {
-        "method": "GET",
-        "url": {
-          "raw": "{{baseUrl}}/api/orders/:id",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "orders", ":id"]
-        }
-      },
-      "response": []
-    },
-    {
-      "name": "Update Order",
-      "request": {
-        "method": "PUT",
-        "header": [{ "key": "Content-Type", "value": "application/json" }],
-        "url": {
-          "raw": "{{baseUrl}}/api/orders/:id",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "orders", ":id"]
-        },
-        "body": { "mode": "raw", "raw": "{ \"status\": \"PAID\" }" }
-      },
-      "response": []
-    },
-    {
-      "name": "Delete Order",
-      "request": {
-        "method": "DELETE",
-        "url": {
-          "raw": "{{baseUrl}}/api/orders/:id",
-          "host": ["{{baseUrl}}"],
-          "path": ["api", "orders", ":id"]
-        }
-      },
-      "response": []
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": { "exec": [], "type": "text/javascript" }
-    }
-  ]
+	"info": {
+		"_postman_id": "980e0c5f-881f-4c30-879e-362bf9a5124a",
+		"name": "Meli",
+		"description": "Meli API test for orders\n\nWork in progress, todo:  \n\\- Create CRUD for Products\n\n\\- Create CRUD for Users",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48947911",
+		"_collection_link": "https://arkn37-dev-3755422.postman.co/workspace/Tattler-App~1c19d5bd-91e6-442f-a6cb-661cf10f6504/collection/48947911-980e0c5f-881f-4c30-879e-362bf9a5124a?action=share&source=collection_link&creator=48947911"
+	},
+	"item": [
+		{
+			"name": "createOrder",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Funkos order\",\r\n    \"address\": \"Cerrada del encino Mty\",\r\n    \"total\": 500,\r\n    \"status\": \"CREATED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/order",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"order"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getOrderById",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/order/{{ORDER_UUID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"order",
+						"{{ORDER_UUID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllOrders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/order?page=0&size=100",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"order"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "100"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOrder",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"total\": 5000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/order/{{ORDER_UUID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"order",
+						"{{ORDER_UUID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateOrderStatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"status\": \"SHIPPED\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/order/{{ORDER_UUID}}/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"order",
+						"{{ORDER_UUID}}",
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteOrderById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/order/{{ORDER_UUID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"order",
+						"{{ORDER_UUID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAllStatus",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Funkos order\",\r\n    \"address\": \"Cerrada del encino Mty\",\r\n    \"total\": 500,\r\n    \"status\": \"ACTIVE\"\r\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "createStatus",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"code\": \"ACTIVE\",\r\n    \"name\": \"order creat\",\r\n    \"description\": \"Indicates the order has been created\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/status",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateStatus",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"order created\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/status/{{STATUS_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"status",
+						"{{STATUS_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteStatusById",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{BASE_URL}}/status/{{STATUS_ID}}",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"status",
+						"{{STATUS_ID}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "actuator",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"description\": \"Funkos order\",\r\n    \"address\": \"Cerrada del encino Mty\",\r\n    \"total\": 500,\r\n    \"status\": \"ACTIVE\"\r\n}"
+				},
+				"url": {
+					"raw": "{{BASE_URL}}/actuator/env",
+					"host": [
+						"{{BASE_URL}}"
+					],
+					"path": [
+						"actuator",
+						"env"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": ""
+		},
+		{
+			"key": "ORDER_UUID",
+			"value": ""
+		},
+		{
+			"key": "STATUS_ID",
+			"value": "",
+			"type": "default"
+		}
+	]
 }
