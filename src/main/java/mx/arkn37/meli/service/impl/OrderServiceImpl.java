@@ -33,7 +33,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class OrderSeviceImpl implements OrderService {
+public class OrderServiceImpl implements OrderService {
 
     private static final String ORDER_NOT_FOUD = "Order not found with UUID: ";
 

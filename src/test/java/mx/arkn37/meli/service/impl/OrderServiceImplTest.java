@@ -29,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
-class OrderSeviceImplTest {
+class OrderServiceImplTest {
     @Mock
     private OrderRepository orderRepository;
     @Mock
     private StatusService statusService;
     @InjectMocks
-    private OrderSeviceImpl orderSeviceImpl;
+    private OrderServiceImpl orderServiceImpl;
 
     @BeforeEach
     void setUp() {
@@ -54,7 +54,7 @@ class OrderSeviceImplTest {
         status.setName("CREATED");
         when(statusService.findByCode(StatusType.CREATED.getCode())).thenReturn(status);
 
-        orderSeviceImpl.saveOrder(request);
+        orderServiceImpl.saveOrder(request);
         verify(orderRepository, times(1)).save(any(Order.class));
     }
 
@@ -68,7 +68,7 @@ class OrderSeviceImplTest {
         Order order = new Order();
         when(orderRepository.findByUuidAndDeletedAtIsNull(uuid)).thenReturn(Optional.of(order));
 
-        orderSeviceImpl.updateOrder(uuid, request);
+        orderServiceImpl.updateOrder(uuid, request);
         assertThat(order.getAddress()).isEqualTo("new address");
         assertThat(order.getDescription()).isEqualTo("new desc");
         assertThat(order.getTotal()).isEqualTo(BigDecimal.ONE);
@@ -87,7 +87,7 @@ class OrderSeviceImplTest {
         when(orderRepository.findByUuidAndDeletedAtIsNull(uuid)).thenReturn(Optional.of(order));
         when(statusService.findByCode(StatusType.SHIPPED.getCode())).thenReturn(status);
 
-        orderSeviceImpl.updateOrderStatus(uuid, request);
+        orderServiceImpl.updateOrderStatus(uuid, request);
         assertThat(order.getStatus()).isEqualTo(status);
         verify(orderRepository).save(order);
     }
@@ -100,7 +100,7 @@ class OrderSeviceImplTest {
         when(orderRepository.findByUuidAndDeletedAtIsNull(uuid)).thenReturn(Optional.of(order));
         mockStatic(OrderMapper.class).when(() -> OrderMapper.toResponse(order)).thenReturn(response);
 
-        OrderResponse result = orderSeviceImpl.orderByUuid(uuid);
+        OrderResponse result = orderServiceImpl.orderByUuid(uuid);
         assertThat(result).isEqualTo(response);
     }
 
@@ -110,7 +110,7 @@ class OrderSeviceImplTest {
         when(orderRepository.findAllActive(any())).thenReturn(orderPage);
         mockStatic(OrderMapper.class).when(() -> OrderMapper.toResponse(any(Order.class))).thenReturn(new OrderResponse());
 
-        Page<OrderResponse> result = orderSeviceImpl.findAllOrders(PageRequest.of(0, 10));
+        Page<OrderResponse> result = orderServiceImpl.findAllOrders(PageRequest.of(0, 10));
         assertThat(result.getContent()).hasSize(1);
     }
 
@@ -120,7 +120,7 @@ class OrderSeviceImplTest {
         Order order = new Order();
         when(orderRepository.findByUuid(uuid)).thenReturn(Optional.of(order));
 
-        orderSeviceImpl.deleteOrder(uuid);
+        orderServiceImpl.deleteOrder(uuid);
         assertThat(order.getDeletedAt()).isNotNull();
         verify(orderRepository).save(order);
     }
@@ -130,13 +130,13 @@ class OrderSeviceImplTest {
         UUID uuid = UUID.randomUUID();
         UpdateOrderRequest request = new UpdateOrderRequest();
         when(orderRepository.findByUuidAndDeletedAtIsNull(uuid)).thenReturn(Optional.empty());
-        assertThrows(IllegalArgumentException.class, () -> orderSeviceImpl.updateOrder(uuid, request));
+        assertThrows(IllegalArgumentException.class, () -> orderServiceImpl.updateOrder(uuid, request));
     }
 
     @Test
     void orderByUuid_shouldThrowIfOrderNotFound() {
         UUID uuid = UUID.randomUUID();
         when(orderRepository.findByUuidAndDeletedAtIsNull(uuid)).thenReturn(Optional.empty());
-        assertThrows(IllegalArgumentException.class, () -> orderSeviceImpl.orderByUuid(uuid));
+        assertThrows(IllegalArgumentException.class, () -> orderServiceImpl.orderByUuid(uuid));
     }
 }
