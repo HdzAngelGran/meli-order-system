@@ -5,8 +5,13 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import mx.arkn37.meli.model.Status;
+import mx.arkn37.meli.dto.CreateStatusRequest;
+import mx.arkn37.meli.dto.UpdateStatusRequest;
+import mx.arkn37.meli.dto.StatusResponse;
+import mx.arkn37.meli.mappers.StatusMapper;
 import mx.arkn37.meli.service.StatusService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,8 +33,42 @@ public class StatusController {
             @ApiResponse(responseCode = "200", description = "Successfully retrieved list"),
             @ApiResponse(responseCode = "404", description = "No statuses found")
     })
-    public ResponseEntity<List<Status>> getAllStatus() {
-        List<Status> statuses = statusService.findAll();
-        return ResponseEntity.ok(statuses);
+    public ResponseEntity<List<StatusResponse>> getAllStatus() {
+        List<StatusResponse> responses = statusService.findAll();
+        return ResponseEntity.ok(responses);
+    }
+
+    @PostMapping
+    @Operation(summary = "Create a new status", description = "Creates a new status.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Status created successfully"),
+            @ApiResponse(responseCode = "400", description = "Invalid input data")
+    })
+    public ResponseEntity<StatusResponse> createStatus(@RequestBody CreateStatusRequest request) {
+        var status = statusService.createStatus(request);
+        return new ResponseEntity<>(status, HttpStatus.CREATED);
+    }
+
+    @PutMapping("{id}")
+    @Operation(summary = "Update a status", description = "Updates an existing status.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Status updated successfully"),
+            @ApiResponse(responseCode = "404", description = "Status not found")
+    })
+    public ResponseEntity<StatusResponse> updateStatus(@PathVariable Long id,
+                                                       @RequestBody UpdateStatusRequest request) {
+        var status = statusService.updateStatus(id, request);
+        return ResponseEntity.ok(status);
+    }
+
+    @DeleteMapping("{id}")
+    @Operation(summary = "Delete a status", description = "Deletes an existing status.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Status deleted successfully"),
+            @ApiResponse(responseCode = "404", description = "Status not found")
+    })
+    public ResponseEntity<Void> deleteStatus(@PathVariable Long id) {
+        statusService.deleteStatus(id);
+        return ResponseEntity.noContent().build();
     }
 }
