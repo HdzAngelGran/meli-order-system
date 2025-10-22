@@ -76,6 +76,28 @@ The project employs a multi-layered testing strategy that demonstrates an advanc
 - **Integration Tests**: The `@SpringBootTest` annotation is used to write integration tests (`OrderControllerIntegrationTest`) that validate the interactions between different layers of the application, from the controller down to the database. This ensures that the system works as a cohesive whole.
 - **Digital Tool Promotion**: The testing process is designed to be run automatically as part of a CI/CD pipeline, promoting the use of digital tools to ensure that no code is merged without passing all quality checks.
 
+## Endpoints
+
+### Order Endpoints
+
+| Method | Path                 | Description              |
+| ------ | -------------------- | ------------------------ |
+| POST   | /order               | Create a new order       |
+| PUT    | /order/{uuid}        | Update an existing order |
+| GET    | /order/{uuid}        | Get an order by UUID     |
+| DELETE | /order/{uuid}        | Delete an order by UUID  |
+| GET    | /order               | Get all orders           |
+| PUT    | /order/{uuid}/status | Update the order status  |
+
+### Status Endpoints
+
+| Method | Path         | Description         |
+| ------ | ------------ | ------------------- |
+| GET    | /status      | Get all statuses    |
+| POST   | /status      | Create a new status |
+| PUT    | /status/{id} | Update a status     |
+| DELETE | /status/{id} | Delete a status     |
+
 ### Postman Collection & Startup Script
 
 To ensure effective outcomes, the project includes:
