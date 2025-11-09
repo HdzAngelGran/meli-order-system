@@ -98,20 +98,24 @@ class OrderServiceImplTest {
         Order order = new Order();
         OrderResponse response = new OrderResponse();
         when(orderRepository.findByUuidAndDeletedAtIsNull(uuid)).thenReturn(Optional.of(order));
-        mockStatic(OrderMapper.class).when(() -> OrderMapper.toResponse(order)).thenReturn(response);
+        try (var mocked = mockStatic(OrderMapper.class)) {
+            mocked.when(() -> OrderMapper.toResponse(order)).thenReturn(response);
 
-        OrderResponse result = orderServiceImpl.orderByUuid(uuid);
-        assertThat(result).isEqualTo(response);
+            OrderResponse result = orderServiceImpl.orderByUuid(uuid);
+            assertThat(result).isEqualTo(response);
+        }
     }
 
     @Test
     void findAllOrders_shouldReturnPageOfOrderResponse() {
         Page<Order> orderPage = new PageImpl<>(Collections.singletonList(new Order()));
         when(orderRepository.findAllActive(any())).thenReturn(orderPage);
-        mockStatic(OrderMapper.class).when(() -> OrderMapper.toResponse(any(Order.class))).thenReturn(new OrderResponse());
+        try (var mocked = mockStatic(OrderMapper.class)) {
+            mocked.when(() -> OrderMapper.toResponse(any(Order.class))).thenReturn(new OrderResponse());
 
-        Page<OrderResponse> result = orderServiceImpl.findAllOrders(PageRequest.of(0, 10));
-        assertThat(result.getContent()).hasSize(1);
+            Page<OrderResponse> result = orderServiceImpl.findAllOrders(PageRequest.of(0, 10));
+            assertThat(result.getContent()).hasSize(1);
+        }
     }
 
     @Test
