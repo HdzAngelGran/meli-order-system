@@ -115,6 +115,10 @@ This project is designed to serve as a reference model for building modern, ente
 
 The source code is documented using standard JavaDoc conventions, with a focus on explaining the _why_ behind complex logic, not just the _what_. This approach, combined with the self-documenting nature of the code (clear naming, small methods), ensures that other developers can autonomously understand and contribute to the project.
 
+### Issues Found
+
+For details of the issues and resolution, refer to the next link [Issues and Resolutions](./docs/issues.md)
+
 ### Testing Strategy
 
 The project employs a multi-layered testing strategy that demonstrates an advanced skill in managing integrations and promoting quality.
